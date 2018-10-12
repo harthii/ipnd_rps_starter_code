@@ -33,6 +33,11 @@ class Game:
     def __init__(self, p1, p2):
         self.p1 = p1
         self.p2 = p2
+        score=0
+
+    # def round_score(move1, move2):
+    #     if beats(move1,move2):
+
 
     def play_round(self):
         move1 = self.p1.move()
@@ -50,5 +55,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(Player(), Player())
+    game = Game(RandomPlayer(), RandomPlayer())
     game.play_game()
