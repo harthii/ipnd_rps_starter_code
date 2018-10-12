@@ -33,8 +33,12 @@ class RandomPlayer(Player):
         return random.choice(moves)
 
 class HumanPlayer(Player):
-    def move(self):        
-        return input("choose: Rock, paper, or scissors?  ")
+    def move(self): 
+        choice= ' '       
+        while choice not in moves:
+            choice = input("choose: Rock, paper, or scissors?  ").lower()
+        return choice
+
 
 class ReflectPlayer(Player): # playes the other player move next.
     def move(self):
