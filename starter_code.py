@@ -8,6 +8,7 @@ moves = ['rock', 'paper', 'scissors']
 """The Player class is the parent class for all of the Players
 in this game"""
 
+
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
@@ -15,11 +16,16 @@ def beats(one, two):
 
 
 class Player:
+    def __init__(self):
+        self.round=0
+
     def move(self):
         return 'rock'
 
     def learn(self, my_move, their_move):
-        pass
+        self.p1_nextmove= their_move
+        self.p2_nextmove= my_move
+
 
 
 class RandomPlayer(Player):
@@ -29,6 +35,18 @@ class RandomPlayer(Player):
 class HumanPlayer(Player):
     def move(self):        
         return input("choose: Rock, paper, or scissors?")
+
+class ReflectPlayer(Player):
+    def move(self):
+        self.round+=1 
+        if self.round==1:
+            
+            return random.choice(moves)
+        else:
+            return self.p1_nextmove
+          
+
+
 
 
 class Game:
@@ -54,6 +72,8 @@ class Game:
         print(f"Player 1: {move1}  Player 2: {move2}")
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
+        
+        #-----------------------------
         self.round_score(move1,move2)
         score=(f"player1 score={self.p1_score}  player2 score={self.p2_score}") 
         print(score)
@@ -68,5 +88,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(RandomPlayer(), HumanPlayer())
+    game = Game(ReflectPlayer(), HumanPlayer())
     game.play_game()
