@@ -36,7 +36,7 @@ class HumanPlayer(Player):
     def move(self): 
         choice= ' '       
         while choice not in moves:
-            choice = input("choose: Rock, paper, or scissors?  ").lower()
+            choice = input("choose: rock, paper, or scissors?  ").lower()
         return choice
 
 
@@ -94,14 +94,22 @@ class Game:
         print(score)
             
 
+    # def play_game(self):
+    #     print("Game start!")
+    #     for round in range(3):
+    #         print(f"Round {round}:")
+    #         self.play_round()
+    #     print("Game over!")
+
     def play_game(self):
         print("Game start!")
-        for round in range(3):
+        round= 1
+        while -3 < (self.p1_score- self.p2_score) <3:
             print(f"Round {round}:")
             self.play_round()
+            round+=1
         print("Game over!")
 
-
 if __name__ == '__main__':
-    game = Game(CyclePlayer(), HumanPlayer())
+    game = Game(RandomPlayer(), HumanPlayer())
     game.play_game()
