@@ -8,6 +8,11 @@ moves = ['rock', 'paper', 'scissors']
 """The Player class is the parent class for all of the Players
 in this game"""
 
+def beats(one, two):
+    return ((one == 'rock' and two == 'scissors') or
+            (one == 'scissors' and two == 'paper') or
+            (one == 'paper' and two == 'rock'))
+
 
 class Player:
     def move(self):
@@ -17,16 +22,13 @@ class Player:
         pass
 
 
-def beats(one, two):
-    return ((one == 'rock' and two == 'scissors') or
-            (one == 'scissors' and two == 'paper') or
-            (one == 'paper' and two == 'rock'))
-
-
 class RandomPlayer(Player):
     def move(self):
         return random.choice(moves)
-        
+
+class HumanPlayer(Player):
+    def move(self):        
+        return input("choose: Rock, paper, or scissors?")
 
 
 class Game:
@@ -36,7 +38,7 @@ class Game:
         self.p1_score=0
         self.p2_score=0
 
-    def round_score(self,p1, p2):
+    def round_score(self,p1, p2):  # counts the score
         if p1==p2:
             print("it's a tie")
         elif beats(p1,p2)== True:
@@ -53,7 +55,7 @@ class Game:
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
         self.round_score(move1,move2)
-        score=(f"player1 score={self.p1_score}  player2 score={self.p2_score}")
+        score=(f"player1 score={self.p1_score}  player2 score={self.p2_score}") 
         print(score)
             
 
@@ -66,5 +68,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(RandomPlayer(), RandomPlayer())
+    game = Game(RandomPlayer(), HumanPlayer())
     game.play_game()
