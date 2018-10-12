@@ -22,7 +22,7 @@ class Player:
     def move(self):
         return 'rock'
 
-    def learn(self, my_move, their_move):
+    def learn(self, my_move, their_move): #save the learning method
         self.p1_nextmove= their_move
         self.p2_nextmove= my_move
 
@@ -34,17 +34,28 @@ class RandomPlayer(Player):
 
 class HumanPlayer(Player):
     def move(self):        
-        return input("choose: Rock, paper, or scissors?")
+        return input("choose: Rock, paper, or scissors?  ")
 
-class ReflectPlayer(Player):
+class ReflectPlayer(Player): # playes the other player move next.
     def move(self):
         self.round+=1 
         if self.round==1:
-            
             return random.choice(moves)
         else:
             return self.p1_nextmove
-          
+
+class CyclePlayer(Player):
+    def move(self):
+        self.round+=1 
+        if self.round==1:
+            return random.choice(moves)
+        else:             
+            k= self.p2_nextmove
+            while k== self.p2_nextmove:
+                k= random.choice(moves)
+        return k        
+
+
 
 
 
@@ -88,5 +99,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(ReflectPlayer(), HumanPlayer())
+    game = Game(CyclePlayer(), HumanPlayer())
     game.play_game()
