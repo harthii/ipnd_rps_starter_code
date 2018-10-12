@@ -36,7 +36,7 @@ class HumanPlayer(Player):
     def move(self): 
         choice= ' '       
         while choice not in moves:
-            choice = input("choose: rock, paper, or scissors?  ").lower()
+            choice = input("choose: rock, paper, or scissors? ").lower()
         return choice
 
 
@@ -76,39 +76,36 @@ class Game:
             print("it's a tie")
         elif beats(p1,p2)== True:
             self.p1_score+=1
-            print("player 1 wins")
+            print("Player 1 wins")
         else: 
             self.p2_score+=1    
-            print("player 2 wins")
+            print("You win")
 
     def play_round(self):
         move1 = self.p1.move()
         move2 = self.p2.move()
-        print(f"Player 1: {move1}  Player 2: {move2}")
+        print(f"\nPlayer 1 plays: {move1}     You play: {move2}\n")
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
         
         #-----------------------------
         self.round_score(move1,move2)
-        score=(f"player1 score={self.p1_score}  player2 score={self.p2_score}") 
+        score=(f"\nPlayer1 score:{self.p1_score}   Your score:{self.p2_score}\n") 
         print(score)
-            
-
-    # def play_game(self):
-    #     print("Game start!")
-    #     for round in range(3):
-    #         print(f"Round {round}:")
-    #         self.play_round()
-    #     print("Game over!")
+    
 
     def play_game(self):
-        print("Game start!")
+        print("Game start!\n**Game ends when a player is 3 points ahead** \n")
         round= 1
         while -3 < (self.p1_score- self.p2_score) <3:
             print(f"Round {round}:")
             self.play_round()
             round+=1
-        print("Game over!")
+        if self.p1_score> self.p2_score:
+            print("**YOU LOSE!**")    
+        else:
+            print("**YOU WIN!!**")    
+        print("\nGAME OVER!")
 
 if __name__ == '__main__':
     game = Game(RandomPlayer(), HumanPlayer())
